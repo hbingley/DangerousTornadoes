@@ -1,0 +1,32 @@
+field_no,column,label,dtype,description
+1,om,Tornado number,integer/string,"A count of tornadoes during the year. Before 2007, numbers were assigned as the information arrived in the NWS database. Since 2007, numbers may have been assigned in sequential (temporal) order after event date/times were converted to CST. Do not use om to count the sequence of tornadoes through the year: late entries and corrections are not re-sequenced. Segments of a tornado that crosses state borders and/or more than 4 counties share the same om (see ns/sn/sg)."
+2,yr,Year,integer,Year (spec says 1950-2009; current file covers 1950-2025).
+3,mo,Month,integer,Month.
+4,dy,Day,integer,Day.
+5,date,Date,string,Date.
+6,time,Time,string,Time (tornado start).
+7,tz,Time zone,integer,"All times, except ?=unknown and 9=GMT, were converted to 3=CST. Account for this when building queries for GMT summaries (e.g., 12z-12z)."
+8,st,State,string,"State. PR = Puerto Rico, VI = Virgin Islands."
+9,stf,State FIPS,integer,State FIPS number. Some Puerto Rico codes are incorrect.
+10,stn,State number,integer,"Number of this tornado in this state in this year. May not be sequential in some years. Discontinued in 2008; can be recalculated by sorting, after accounting for border-crossing tornadoes and 4+ county segments."
+11,mag,(E)F-scale rating,integer,F-scale rating; EF-scale after January 2007.
+12,inj,Injuries,integer,"Injuries. When summing state totals, use sn = 1, not sg = 1."
+13,fat,Fatalities,integer,"Fatalities. When summing state totals, use sn = 1, not sg = 1."
+14,loss,Property loss,numeric,"Estimated property loss. Before 1996, a category code: 0 or blank = unknown; 1 = <$50; 2 = $50-$500; 3 = $500-$5,000; 4 = $5,000-$50,000; 5 = $50,000-$500,000; 6 = $500,000-$5,000,000; 7 = $5,000,000-$50,000,000; 8 = $50,000,000-$500,000,000; 9 = $5,000,000,000. From 1996, property damage in millions of dollars (may change to whole dollars in the future). An entry of 0 does not mean $0. When summing state totals, use sn = 1, not sg = 1."
+15,closs,Crop loss,numeric,Estimated crop loss in millions of dollars (started in 2007). An entry of 0 does not mean $0.
+16,slat,Starting latitude,numeric,Starting latitude.
+17,slon,Starting longitude,numeric,Starting longitude.
+18,elat,Ending latitude,numeric,Ending latitude.
+19,elon,Ending longitude,numeric,Ending longitude.
+20,len,Path length,numeric,Length in miles.
+21,wid,Path width,numeric,Width in yards.
+22,ns,Number of states,integer,Number of states affected by this tornado. See segment codes below.
+23,sn,State number flag,integer,1 = entire track info in this state.
+24,sg,Segment number,integer,"Tornado segment number. 1 = entire track info. Codes (ns,sn,sg): 1,1,1 = entire record for the track (unless all 4 FIPS codes are non-zero); 1,0,-9 = continuing county FIPS info only, from the 1,1,1 record (same om); 2,0,1 = a two-state tornado (st = state of touchdown, other fields summarize the entire track); 2,1,2 = first or second state segment of a two-state tornado (same om); 2,0,-9 = continuing county FIPS for a 2,1,2 record that exceeds 4 counties (same om); 3,0,1 = a three-state tornado (st = state of touchdown, other fields summarize the entire track); 3,1,2 = first, second, or third state segment of a three-state tornado (same om)."
+25,f1,1st county FIPS,integer,1st county FIPS code.
+26,f2,2nd county FIPS,integer,2nd county FIPS code.
+27,f3,3rd county FIPS,integer,3rd county FIPS code.
+28,f4,4th county FIPS,integer,4th county FIPS code. Additional counties are listed in sg = -9 records with the same om.
+29,fc,F-scale changed flag,integer,"Added in 2016. fc = 0 for an unaltered (E)F-scale rating; fc = 1 if the previous rating was -9 (unknown). Applies to 1,864 CONUS tornadoes from 1953-1982 that were re-rated from property loss and path length (spec p. 4)."
+30,edat,Ending date,string,Not in the 2010 spec.
+31,etime,Ending time,string,Not in the 2010 spec.
